@@ -15,9 +15,9 @@
 
 - name: postgresql user
   postgresql_user: 
-    db: {{database}}
-    name: {{db_user}}
-    password: {{db_passwd}}
+    db: database
+    name: db_user
+    password: db_passwd
 
 
 

@@ -1,52 +1,49 @@
 
 # Install docker
 
-  - name: Update packages list
-    apt:
-      autoclean: yes
-      update_cache: yes
-      upgrade: yes
+- name: Update packages list
+  apt:
+    autoclean: yes
+    update_cache: yes
+    upgrade: yes
   
-  - name: Install packages HTTPS
-    apt:
-      pkg:
-        - apt-transport-https
-        - ca-certificates
-        - curl
-        - gnupg2
-        - software-properties-common
-      state: present
+- name: Install packages HTTPS
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg2
+      - software-properties-common
+    state: present
 
-  - name: Add GPG key for docker
-    apt_key:
-      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
-      url: https://download.docker.com/linux/debian/gpg
-      state: present
+- name: Add GPG key for docker
+  apt_key:
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    url: https://download.docker.com/linux/debian/gpg
+    state: present
+ 
+- name: Add Docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/debian/ stretch stable"
+    state: present
+
+- name: Install Docker
+  apt:
+    name: docker-ce
+    state: latest
+    only_upgrade: yes
+
+- name: Check docker group  exists or create
+  group:
+    name: docker
+    state: present
+
+- name: add vmuser to group Docker
+  user:
+    name: vmuser
+    group: docker
   
-  - name: Add Docker repository
-    apt_repository:
-      repo: "deb [arch=amd64] https://download.docker.com/linux/debian/ stretch stable"
-      state: present
-
-  - name: Install Docker
-    apt:
-      name: docker-ce
-      state: latest
-      only_upgrade: yes
-
-  - name: Check docker group  exists or create
-    group:
-      name: docker
-      state: present
-
-  - name: add vmuser to group Docker
-    user:
-      name: {{vmuser}}
-      group: docker
-  
-  - name: create postgre-data volume
-    docker_volume:
-      name: postgre-data
 
 
 

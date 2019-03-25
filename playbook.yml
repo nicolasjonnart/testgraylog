@@ -13,14 +13,14 @@
     - graylog 
 
 - name: preprod playbook
-   hosts: preprod
-   become: true
-   vars:
-     vm_user: nico
-     database: dbprod
-     db_user: titi
-     db_passwd: bbbb
-   roles:
-     - docker
-     - postgresql
-     - graylog 
+  hosts: preprod
+  become: true
+  vars:
+    vm_user: nico
+    database: dbprod
+    db_user: titi
+    db_passwd: bbbb
+  roles:
+    - docker
+    - postgresql
+    - graylog 
