@@ -1,0 +1,17 @@
+
+- name: preprod playbook
+  hosts: preprod
+  become: true
+  roles:
+    - docker
+    - postgresql
+    - graylog 
+
+
+- name: prod playbook
+  hosts: prod
+  become: true
+  roles:
+    - docker
+    - postgresql
+    - graylog 

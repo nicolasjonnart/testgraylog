@@ -1,0 +1,23 @@
+
+
+- name: "postgresql"
+  docker_service:
+    project_name: postgresql
+    definition:
+      version: "3.3" 
+      services:
+        db:
+          image: postgres:3.3
+          container_name: db
+          ports: 
+            - "5432:5432"
+          network_mode: host
+          restart: always
+          volumes:
+            - db:/var/lib/postgresql/data
+          environment:
+            POSTGRES_DB: ${DB_preprod}
+            POSTGRES_USER: ${titi}
+            POSTGRES_PASSWORD: ${toto}
+
+

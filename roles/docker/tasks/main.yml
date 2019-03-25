@@ -1,0 +1,85 @@
+
+#CONFIG DOCKER
+
+
+# Install docker
+
+  - name: Update packages list
+    apt:
+      autoclean: yes
+      update_cache: yes
+      upgrade: yes
+  
+  - name: Install packages HTTPS
+    apt:
+      pkg:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - gnupg2
+        - software-properties-common
+      state: present
+
+  - name: Add GPG key for docker
+    apt_key:
+      id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+      url: https://download.docker.com/linux/debian/gpg
+      state: present
+  
+  - name: Add Docker repository
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/debian/ stretch stable"
+      state: present
+
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      state: latest
+      only_upgrade: yes
+
+  - name: Check docker group  exists or create
+    group:
+      name: docker
+      state: present
+
+  - name: add nico to group Docker
+    user:
+      name: nico
+      group: docker
+  
+  - name: Install docker-compose
+    apt:
+      name: docker-compose=1.8.*
+      state: present
+      update_cache: yes
+  
+
+
+      
+# dépendences Python pour le module docker_service
+
+  - name: install pip
+    apt:
+      name: python-pip
+      state: latest
+
+  - name: install docker
+    pip:
+      name: docker
+      state: latest      
+                                    
+  - name: docker-py
+    pip:
+      name: docker-py
+      state: latest
+
+  - name: pip docker-compose
+    pip:
+      name: docker-compose
+      state: latest
+
+
+ 
+
+
+
