@@ -1,7 +1,4 @@
 
-#CONFIG DOCKER
-
-
 # Install docker
 
   - name: Update packages list
@@ -42,44 +39,14 @@
       name: docker
       state: present
 
-  - name: add nico to group Docker
+  - name: add vmuser to group Docker
     user:
-      name: nico
+      name: {{vmuser}}
       group: docker
   
-  - name: Install docker-compose
-    apt:
-      name: docker-compose=1.8.*
-      state: present
-      update_cache: yes
-  
-
-
-      
-# dépendences Python pour le module docker_service
-
-  - name: install pip
-    apt:
-      name: python-pip
-      state: latest
-
-  - name: install docker
-    pip:
-      name: docker
-      state: latest      
-                                    
-  - name: docker-py
-    pip:
-      name: docker-py
-      state: latest
-
-  - name: pip docker-compose
-    pip:
-      name: docker-compose
-      state: latest
-
-
- 
+  - name: create postgre-data volume
+    docker_volume:
+      name: postgre-data
 
 
 

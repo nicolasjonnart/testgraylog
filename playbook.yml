@@ -2,16 +2,25 @@
 - name: preprod playbook
   hosts: preprod
   become: true
+  vars:
+    vm_user: nico
+    database: dbpreprod 
+    db_user: toto
+    db_passwd: aaaa
   roles:
     - docker
     - postgresql
     - graylog 
 
-
-- name: prod playbook
-  hosts: prod
-  become: true
-  roles:
-    - docker
-    - postgresql
-    - graylog 
+- name: preprod playbook
+   hosts: preprod
+   become: true
+   vars:
+     vm_user: nico
+     database: dbprod
+     db_user: titi
+     db_passwd: bbbb
+   roles:
+     - docker
+     - postgresql
+     - graylog 
